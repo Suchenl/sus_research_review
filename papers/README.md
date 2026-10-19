@@ -4,12 +4,11 @@
 
 ## 2026
 
+| 论文 | 发表状态 | 关键问题 |
+|---|---|---|
 | [TSRL：触发式 SFT + RL](2026/tsrl.md) | arXiv 预印本（2026-10-13） | RL 主导，难状态才注入专家监督，减少遗忘 |
 | [AgentTune](2026/agenttune.md) | arXiv 预印本（2026-10-09） | 统一 Agent 轨迹、训练与评测的 EventLog |
 | [UniRL（腾讯混元）](2026/unirl-hunyuan.md) | 官方开源框架（2026-10） | 同一训练设施支持 SFT、Agentic、异步 RL 等入口 |
-
-| 论文 | 发表状态 | 关键问题 |
-|---|---|---|
 | [ReLIFT](2026/relift.md) | ICLR 2026 | RL 遇到困难题时如何插入定向 SFT |
 | [BRIDGE](2026/bridge.md) | ICML 2026 | 如何使 SFT 梯度帮助 RL 而非干扰 |
 | [DYPO](2026/dypo.md) | ACL 2026 Findings | 基于训练反馈动态平衡 SFT 与 RL |
