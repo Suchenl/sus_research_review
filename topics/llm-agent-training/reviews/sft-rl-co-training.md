@@ -69,7 +69,15 @@ J(\theta)=\mathbb E_{x\sim D,\,y\sim\pi_\theta(\cdot\mid x)}[R(x,y)].
 
 **不适用的地方**：若无法取得真实机器人某失败状态的专家下一步动作，ReLIFT 并没有凭空解决没有专家的问题。
 
-### 2.3 同步梯度协同：BRIDGE（ICML 2026）
+### 2.3 最新 2026-10 进展：TSRL 的困难状态触发监督
+
+[TSRL 详细解读](../../../papers/2026/tsrl.md) · [arXiv 原文](https://arxiv.org/abs/2610.17726)（2026-10-13，预印本）。与 ReLIFT 类似，TSRL 也不赞成在所有状态无条件 SFT，但更突出**持续学习中的能力遗忘**。它将 RL 作为主干，用 Group Success Rate 判断当前状态是否难到应当请求专家标签，仅在触发时加监督，并逐步减弱其影响。作者在 ALFWorld、WebShop、Deep Search 实验中报告，之前任务的能力比某些 SFT→RL 基线最多多保留 **9.6 个百分点**。重要限制：它仍然要求困难状态有可信专家，不能解决 ORA 没有通用专家的根本问题。
+
+### 2.4 AgentTune / UniRL：训练框架不等于联合优化算法
+
+[AgentTune](../../../papers/2026/agenttune.md)（2026-10-09，预印本）用双层 EventLog 将执行、训练、蒸馏与评价共享同一个轨迹事实来源。[腾讯混元 UniRL](../../../papers/2026/unirl-hunyuan.md)（2026-10 官方仓库）已经将 SFT、Agentic RL、AR/VLM RL 与异步训练等入口纳入统一设施。两者对 ORA 的关键作用是**可维护、可信的训练基础设施**；它们不能作为“同一 Loss 联合更新一定更强”的证据。
+
+### 2.5 同步梯度协同：BRIDGE（ICML 2026）
 
 [详细解读](../../../papers/2026/bridge.md) · [官方论文](https://proceedings.mlr.press/v306/chen26an.html)。
 
@@ -84,7 +92,7 @@ J(\theta)=\mathbb E_{x\sim D,\,y\sim\pi_\theta(\cdot\mid x)}[R(x,y)].
 
 作者报告五个数学推理基准上，较多个朴素组合/两阶段基线平均**超过 3 个百分点**提升。这个结论支持“更聪明的联合 Loss 可能有益”，但机器人多模态 RL 成本及奖励可靠性尚未得到这篇论文证明。
 
-### 2.4 基于奖励反馈的动态协调：DYPO（ACL 2026 Findings）
+### 2.6 基于奖励反馈的动态协调：DYPO（ACL 2026 Findings）
 
 [详细解读](../../../papers/2026/dypo.md) · [官方论文](https://aclanthology.org/2026.findings-acl.219/)。
 
@@ -92,7 +100,7 @@ DYPO 把 SFT 的低方差/拟合偏差与 RL 的探索/高方差作为互补问�
 
 启示在于混训比例应随当前能力、奖励质量与训练状态变化，而不是固定一个常数。
 
-### 2.5 能力合并而非普通混 Loss：MiMo-V2.6 MOPD2
+### 2.7 能力合并而非普通混 Loss：MiMo-V2.6 MOPD2
 
 [详细解读](../../../papers/2026/mimo-mopd2.md) · [官方模型卡](https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-MOPD)。
 
@@ -104,7 +112,7 @@ MiMo 为不同领域训练不同的 mixRL 与 SFT 教师，再用三股学生在
 
 这特别值得 Agent 训练参考：**高质量历史前缀不一定意味着继续做传统 BC**。但是 OPD 必须有在学生前缀上仍可靠的教师分布，不能把弱控制器的“最优动作”当作真实最优值。
 
-### 2.6 机制与反证研究
+### 2.8 机制与反证研究
 
 [RL Squeezes, SFT Expands（ICLR 2026）](../../../papers/2026/rl-squeezes.md)发现：在作者的推理图分析中，SFT 扩展正确轨迹，RL 压缩错误轨迹；这支持先让模型进入有效解空间，再优化选择。
 
@@ -183,9 +191,9 @@ Clip-Higher、Dynamic Sampling、Token-Level PG Loss、Overlong Reward Shaping �
 
 ## 8. 原始文献阅读路线
 
-1. 想先懂策略：读 [DeepSeek-R1](../../../papers/2025/deepseek-r1.md)、[Qwen3](../../../papers/2025/qwen3.md)、[ReLIFT](../../../papers/2026/relift.md)。
+1. 想先懂策略：读 [DeepSeek-R1](../../../papers/2025/deepseek-r1.md)、[Qwen3](../../../papers/2025/qwen3.md)、[ReLIFT](../../../papers/2026/relift.md)、[TSRL](../../../papers/2026/tsrl.md)。
 2. 想研究 SFT/RL 同步训练：读 [BRIDGE](../../../papers/2026/bridge.md)、[DYPO](../../../papers/2026/dypo.md)、[RL Squeezes](../../../papers/2026/rl-squeezes.md)。
-3. 想研究现代 Agent：读 [工具调用受控对照](../../../papers/2026/sft-rl-tool-agents.md)、[AutoTool](../../../papers/2026/autotool.md)、[MiMo MOPD2](../../../papers/2026/mimo-mopd2.md)。
+3. 想研究现代 Agent：读 [工具调用受控对照](../../../papers/2026/sft-rl-tool-agents.md)、[AutoTool](../../../papers/2026/autotool.md)、[MiMo MOPD2](../../../papers/2026/mimo-mopd2.md)，工程补读 [AgentTune](../../../papers/2026/agenttune.md) 和 [UniRL](../../../papers/2026/unirl-hunyuan.md)。
 4. 想研究实际 RL 配方与理论：读 [DAPO](../../../papers/2025/dapo.md)、[RLVR 回溯理论](../../../papers/2026/rlvr-backtracking.md)。
 5. 想研究机器人轨迹监督：读 [DTWIL](../../../papers/2025/dtwil.md)以及[真实轨迹奖励设计](../../../research/robot-trajectory-reward.md)。
 

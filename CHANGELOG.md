@@ -1,6 +1,7 @@
 # 更新记录
 
 ## 2026-10-19
+- 进一步检索 10 月近期研究，补充 TSRL（困难状态触发 SFT）、AgentTune（统一 EventLog）及腾讯混元 UniRL（多模式训练基础设施），均标注论文/仓库证据等级。
 - 初始化中文 Markdown 个人研究知识库及 AI 维护规范。
 - 建立 SFT、RL、RLVR、OPD、混合训练等共享术语。
 - 创建首个主题：LLM/多模态 Agent 的 SFT × RL 协同训练综述。
